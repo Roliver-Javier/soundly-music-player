@@ -1,0 +1,25 @@
+.container {
+  background-color: #363638;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-self: center;
+}
+.colLeft {
+  padding: 10px;
+}
+.colRight {
+  padding: 20px;
+}
+.colRight h6,
+p {
+  color: #fff;
+}
+
+.btnBanner {
+  display: flex;
+  margin-right: 100px;
+  justify-self: flex-start;
+  align-self: flex-start;
+}

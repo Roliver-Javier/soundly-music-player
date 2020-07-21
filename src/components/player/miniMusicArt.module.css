@@ -1,0 +1,69 @@
+.mainContainer {
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  transform: translate3d(0, 0, 0);
+  bottom: 0;
+  left: 0;
+  background: rgb(39, 39, 39);
+}
+.miniArtContainer {
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  position: absolute;
+  left: calc(50% - 45px);
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 150px;
+}
+.miniArtImg {
+  object-fit: cover;
+  text-align: center;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+}
+.overFlowHidden {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.details {
+  color: #fff;
+  margin: 5px 8px;
+}
+.details * {
+  width: 35%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.buttons {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  color: #fff;
+  transform: translateY(-50%);
+}
+.buttons svg {
+  margin-right: 8px;
+  margin-left: 10px;
+  font-size: 2.4em;
+  color: #fff;
+}
+
+.mainArt {
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  box-shadow: #00000030 0px 3px 6px;
+  border-radius: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

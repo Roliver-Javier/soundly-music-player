@@ -1,0 +1,81 @@
+.root {
+  position: relative;
+  z-index: 0;
+}
+.root:hover {
+  z-index: 10;
+}
+
+.root .item {
+  padding: 0 2px;
+  transition: 250ms all;
+  background: none;
+  color: #fff;
+  z-index: 0;
+}
+
+.root .item:hover {
+  margin: 0 40px;
+  transform: scale(1.2);
+}
+
+.BottomContent {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(0deg, rgb(8, 8, 8) 20%, rgba(23, 23, 23, 0) 100%);
+}
+.BottomContent h6 {
+  font-size: 18px;
+  font-weight: 100;
+}
+.BottomContent p {
+  font-weight: 100;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 499px) {
+  .BottomContent {
+    position: absolute;
+    padding-bottom: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .BottomContent h6 {
+    font-size: 12px;
+  }
+}
+@media (min-width: 500px) and (max-width: 620px) {
+  .BottomContent {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 180px;
+    align-items: flex-start;
+    background: linear-gradient(
+      0deg,
+      rgb(8, 8, 8) 80%,
+      rgba(23, 23, 23, 0) 100%
+    );
+  }
+  .BottomContent h6 {
+    font-size: 12px;
+  }
+}
+@media (min-width: 621px) and (max-width: 800px) {
+  .BottomContent {
+    padding-bottom: 150px;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 975px) {
+  .BottomContent {
+    padding-bottom: 120px;
+  }
+}
+@media (min-width: 976px) and (max-width: 1105px) {
+  .BottomContent {
+    padding-bottom: 80px;
+  }
+}

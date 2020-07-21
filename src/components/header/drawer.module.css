@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(36, 36, 36, 1) 60%,
+    rgb(21, 33, 65) 100%
+  );
+  position: fixed;
+  width: 15%;
+  color: #fff;
+  border-right: 1px solid #32323d;
+}
+.root {
+  width: '100%';
+  max-width: 360px;
+}
+
+.root svg {
+  color: rgb(82, 115, 161);
+}
+.nested {
+  text-align: center !important;
+  padding-right: 20% !important;
+}

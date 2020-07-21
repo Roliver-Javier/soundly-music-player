@@ -1,0 +1,81 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  height: 60vh;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 80%;
+}
+
+.albums {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bottomContainer {
+  background: linear-gradient(0deg, rgb(8, 8, 8) 60%, rgba(23, 23, 23, 0) 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.colBottom {
+  display: flex;
+  flex-direction: row;
+
+  padding-top: 10px;
+}
+.colBottom button {
+  margin-right: 20px;
+  width: 120px;
+  border-radius: 50px;
+  border-width: 1px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+.btnSubs {
+  text-align: center;
+  background: rgb(82, 115, 161);
+  color: #fff;
+  border-color: #5273a1;
+}
+.outlineBtn {
+  text-align: center;
+  background: none;
+  color: #fff;
+  border-color: #fff;
+}
+
+.title span {
+  color: #fff;
+  font-size: 12px;
+}
+
+@media (max-width: 691px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .container {
+    width: 100%;
+  }
+  .songs {
+    overflow-x: auto;
+    width: 100%;
+  }
+  .songList {
+    display: flex;
+    flex-direction: row;
+  }
+  .song {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+}

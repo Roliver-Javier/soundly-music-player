@@ -1,0 +1,25 @@
+.avatar {
+  width: 215px;
+  height: 215px;
+  box-shadow: #0000008c 1px 3px 8px;
+  border-radius: 50%;
+  -webkit-animation: spin 10s linear infinite;
+  -moz-animation: spin 10s linear infinite;
+  animation: spin 10s linear infinite;
+}
+.avatarPlaying {
+  animation-play-state: running;
+}
+.avatarStoping {
+  animation-play-state: paused;
+}
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

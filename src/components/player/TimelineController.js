@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { withStyles, Grid, Typography, Slider } from '@material-ui/core';
+import playerContext from '../../context/playerContext';
 
 const PrettoSlider = withStyles({
   root: {
@@ -34,21 +35,24 @@ const fmtMSS = (s) => {
   return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
 };
 
-const TimelineController = ({ playing, currentSong, handleEnd, reference }) => {
+const TimelineController = ({ reference }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const { playing, currentSong, handleEnd } = useContext(playerContext);
   const audio = reference;
 
-  const toggleAudio = () =>
-    audio.current.paused ? audio.current.play() : audio.current.pause();
   const handleProgress = (e) => {
-    let compute = (e.target.value * duration) / 100;
+    let compute = (e.target.value * duration) / duration;
     setCurrentTime(compute);
     audio.current.currentTime = compute;
   };
 
   useEffect(() => {
-    toggleAudio();
+    if (playing) {
+      audio.current.play();
+    } else {
+      audio.current.pause();
+    }
   }, [playing]);
 
   return (

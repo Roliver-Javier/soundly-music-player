@@ -37,6 +37,10 @@ const PlayerState = (props) => {
       },
     });
 
+  const handleEnd = () => {
+    togglePlaying();
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -48,6 +52,7 @@ const PlayerState = (props) => {
         audio: state.audio,
         togglePlaying,
         setCurrentSong,
+        handleEnd,
       }}
     >
       {props.children}

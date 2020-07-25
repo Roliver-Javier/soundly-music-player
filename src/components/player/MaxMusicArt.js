@@ -14,7 +14,7 @@ const transition = {
 };
 
 const pageVariant = {
-  exit: { y: '100%', opacity: 0, transition },
+  exit: { y: '90%', opacity: 0, transition },
   enter: {
     y: '0%',
     opacity: 1,
@@ -43,26 +43,10 @@ const MaxMusicArt = () => {
         }}
       >
         <div className='musicArtContainer'>
-          <motion.div
-            variants={{
-              exit: { x: 100, opacity: 0, transition },
-              enter: {
-                x: 0,
-                opacity: 1,
-                transition: { delay: 1, ...transition },
-              },
-            }}
-          >
-            <MusicArt currentSong={currentSong} />
-          </motion.div>
+          <MusicArt currentSong={currentSong} />
         </div>
 
-        <TimelineController
-          playing={playing}
-          currentSong={currentSong}
-          handleEnd={handleEnd}
-          reference={audio}
-        />
+        <TimelineController reference={audio} />
 
         <Grid
           container

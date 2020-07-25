@@ -1,6 +1,6 @@
 .container {
   background-color: #363638;
-  width: 80%;
+
   display: flex;
   flex-direction: row;
   justify-self: center;
@@ -19,7 +19,30 @@ p {
 
 .btnBanner {
   display: flex;
+  margin-top: 10px;
   margin-right: 100px;
   justify-self: flex-start;
   align-self: flex-start;
+}
+
+@media (max-width: 499px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .colLeft {
+    padding: 0;
+  }
+  .colLeft svg {
+    width: 100px;
+    padding-right: 20%;
+  }
+  .colRight {
+    padding-top: 0;
+  }
+  .btnBanner {
+    width: 100%;
+  }
 }

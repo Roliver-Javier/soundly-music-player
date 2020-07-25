@@ -54,10 +54,10 @@ const HomePage = (props) => {
           <label className={styles.wrapper__title}>Playlist</label>
           <SongCard
             wide={100}
-            large={50}
+            large={100}
             songs={categoriesPlaylist}
             imageType='picture'
-            itemToShow={4.6}
+            itemToShow={4.5}
           />
         </div>
 

@@ -13,6 +13,7 @@ let previousLocation;
 const LoginPage = lazy(() => import('../pages/loginPage/LoginPage'));
 const HomePage = lazy(() => import('../pages/homePage/HomePage'));
 const MaxMusicArt = lazy(() => import('../components/player/MaxMusicArt'));
+const PlayListPage = lazy(() => import('../pages/playlistPage/PlayListPage'));
 
 const CurrentSection = ({ history, location }) => {
   const circularLoader = (
@@ -50,6 +51,13 @@ const CurrentSection = ({ history, location }) => {
             path='/player'
             render={(props) => {
               return <MaxMusicArt />;
+            }}
+          />
+          <Route
+            exact
+            path='/playlist/:id'
+            render={(props) => {
+              return <PlayListPage />;
             }}
           />
         </Switch>

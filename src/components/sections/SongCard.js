@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { CarouselProvider, Slider } from 'pure-react-carousel';
 import SongCardItem from './SongCardItem';
 import CategoryCardItem from './CategoryCardItem';
@@ -8,7 +8,7 @@ import PlayerContext from '../../context/playerContext';
 import { useHistory } from 'react-router-dom';
 
 const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
-  const { setCurrentSong } = useContext(PlayerContext);
+  const { getCurrentSong } = useContext(PlayerContext);
   let history = useHistory();
   const showSongCard = (obj, index) => {
     switch (imageType) {
@@ -20,7 +20,7 @@ const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
             song={obj.title}
             large={large}
             clickAction={() => {
-              setCurrentSong(
+              getCurrentSong(
                 obj.preview,
                 obj.artist.name,
                 obj.title,
@@ -37,6 +37,7 @@ const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
             title={obj.title}
             large={large}
             size={obj.tracks.data.length}
+            playlistCode={obj.id}
           />
         );
     }

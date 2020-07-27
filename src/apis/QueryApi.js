@@ -8,8 +8,8 @@ const query = axios.create({
   },
 });
 
-export const getPlayList = async () => {
-  return await query.get('/playlist/3155776842');
+export const getPlayList = async (playListId) => {
+  return await query.get(`/playlist/${playListId}`);
 };
 
 export const getAlbum = async (id) => {

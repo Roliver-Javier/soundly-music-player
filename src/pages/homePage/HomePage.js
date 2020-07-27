@@ -1,33 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import SongCard from '../../components/sections/SongCard';
 import styles from './home.module.css';
-import { getPlayList, getPlaylistByCategories } from '../../apis/QueryApi';
 import CoverArt from '../../components/sections/CoverArt';
 import Banner from '../../components/sections/Banner';
+import playerContext from '../../context/playerContext';
 
 const HomePage = (props) => {
-  const [topTenPlaylist, setTopTenPlaylist] = useState([]);
-  const [categoriesPlaylist, setCategoriesPlaylist] = useState([]);
-  const [cover, setCover] = useState(null);
-  const [randomArtistsList, setRandomArtistList] = useState([]);
+  const {
+    cover,
+    categoriesPlaylist,
+    topTenPlaylist,
+    randomArtistsList,
+    getRandomArtistList,
+    getCategoriesPlaylist,
+    getTopTenPlaylist,
+    getCover,
+  } = useContext(playerContext);
 
   useEffect(() => {
-    getPlaylistByCategories().then((res) => {
-      const data = res.map((item) => item.data);
-      setCategoriesPlaylist(data);
-    });
+    getCategoriesPlaylist();
   }, []);
 
   useEffect(() => {
-    getPlayList().then((res) => {
-      setTopTenPlaylist(res.data.tracks.data.slice(0, 10));
-      setRandomArtistList(res.data.tracks.data.reverse());
-      const randomNum = Math.floor(
-        Math.random() * (res.data.tracks.data.length / 2)
-      );
-      setCover(res.data.tracks.data[randomNum]);
-      console.log('cover:', res.data);
-    });
+    getTopTenPlaylist();
+    getRandomArtistList();
+    getCover();
   }, []);
   return (
     <>
@@ -37,7 +34,10 @@ const HomePage = (props) => {
             image={cover.album.cover_xl}
             artist={cover.artist.name}
             title={cover.title}
+            showAlbum
+            showActionBtn
             albumId={cover.album.id}
+            description={`${cover.artist.name} walks us through his world new album, ${cover.title} .`}
           />
         )}
         <div className={styles.col}>

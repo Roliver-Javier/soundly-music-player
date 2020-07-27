@@ -9,17 +9,76 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PropTypes from 'prop-types';
 
-const CoverArt = ({ image, albumId, artist, title }) => {
+const CoverArt = ({
+  image,
+  showAlbum,
+  showActionBtn,
+  albumId,
+  artist,
+  title,
+  description,
+}) => {
   const [albumTracks, setAlbumTracks] = useState([]);
+
   useEffect(() => {
-    getAlbum(albumId).then((res) => {
-      const limitedAlbumTracks = res.data.tracks.data.slice(0, 8);
-      setAlbumTracks(limitedAlbumTracks);
-      console.log('album: ', res.data);
-    });
+    if (showAlbum) {
+      getAlbum(albumId).then((res) => {
+        const limitedAlbumTracks = res.data.tracks.data.slice(0, 8);
+        setAlbumTracks(limitedAlbumTracks);
+      });
+    }
   }, []);
 
+  const AlbumnList = () => {
+    return (
+      <div className={styles.songs}>
+        {albumTracks.length > 1 && (
+          <div className={styles.albums}>
+            <List className={styles.songList}>
+              {albumTracks.map((track, index) => (
+                <ListItem key={index} className={styles.song} button divider>
+                  <ListItemAvatar
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Avatar>
+                      <PlayCircleOutlineIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={track.title}
+                    className={styles.title}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const ActionBtns = () => {
+    return (
+      <div className={styles.colBottom}>
+        <Button size='small' variant='contained' className={styles.btnSubs}>
+          <Typography variant='caption' display='block' gutterBottom>
+            Play
+          </Typography>
+        </Button>
+        <Button size='small' variant='outlined' className={styles.outlineBtn}>
+          <Typography variant='caption' display='block' gutterBottom>
+            Follow
+          </Typography>
+        </Button>
+      </div>
+    );
+  };
   return (
     <Fragment>
       <div className={styles.wrapper}>
@@ -34,65 +93,28 @@ const CoverArt = ({ image, albumId, artist, title }) => {
         >
           <div className={styles.bottomContainer}>
             <Typography style={{ color: '#fff' }} variant='h4' gutterBottom>
-              {artist} : {title}
+              {artist && `${artist} - `}
+              {title}
             </Typography>
 
             <Typography style={{ color: '#fff' }} variant='body2' gutterBottom>
-              {artist} walks us through his world new album, {title}.
+              {description}
             </Typography>
 
-            <div className={styles.colBottom}>
-              <Button
-                size='small'
-                variant='contained'
-                className={styles.btnSubs}
-              >
-                <Typography variant='caption' display='block' gutterBottom>
-                  Play
-                </Typography>
-              </Button>
-              <Button
-                size='small'
-                variant='outlined'
-                className={styles.outlineBtn}
-              >
-                <Typography variant='caption' display='block' gutterBottom>
-                  Follow
-                </Typography>
-              </Button>
-            </div>
+            {showActionBtn && <ActionBtns />}
           </div>
         </div>
-        <div className={styles.songs}>
-          {albumTracks.length > 1 && (
-            <div className={styles.albums}>
-              <List className={styles.songList}>
-                {albumTracks.map((track, index) => (
-                  <ListItem key={index} className={styles.song} button divider>
-                    <ListItemAvatar
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Avatar>
-                        <PlayCircleOutlineIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={track.title}
-                      className={styles.title}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </div>
-          )}
-        </div>
+
+        {showAlbum && <AlbumnList />}
       </div>
     </Fragment>
   );
 };
-
+CoverArt.propTypes = {
+  image: PropTypes.string.isRequired,
+  artist: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  showAlbum: PropTypes.bool.isRequired,
+  showActionBtn: PropTypes.bool.isRequired,
+};
 export default CoverArt;

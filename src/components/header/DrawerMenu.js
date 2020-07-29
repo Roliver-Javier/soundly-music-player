@@ -74,9 +74,9 @@ const DrawerMenu = () => {
             </ListItem>
           </List>
         </Collapse>
-        <ListItem>
+        {/* <ListItem>
           <SubscribeCard />
-        </ListItem>
+        </ListItem> */}
       </List>
     </div>
   );

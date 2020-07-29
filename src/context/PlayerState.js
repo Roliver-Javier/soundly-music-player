@@ -24,6 +24,8 @@ const PlayerState = (props) => {
       title: '',
       picture: '',
       description: '',
+      tracks: [],
+      fans: 0,
     },
     currentSong: {
       title: '',
@@ -45,9 +47,16 @@ const PlayerState = (props) => {
 
   const getCurrentPlayList = async (playlistCode) => {
     const res = await getPlayList(playlistCode);
+    console.log('HERE', res.data);
     dispatch({
       type: SET_CURRENT_PLAYLIST,
-      payload: res.data,
+      payload: {
+        title: res.data.title,
+        picture: res.data.picture_xl,
+        description: res.data.description,
+        tracks: res.data.tracks.data,
+        fans: res.data.fans,
+      },
     });
   };
 

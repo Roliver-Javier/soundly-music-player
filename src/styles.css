@@ -18,3 +18,22 @@ body {
   margin: 0;
   max-height: 420px;
 }
+
+.MuiTable-root {
+  background-color: #1f1f1f;
+}
+.MuiTableCell-body {
+  color: #fff !important;
+  padding: 0 !important;
+}
+.MuiTableRow-root th,
+td,
+tr,
+tbody {
+  color: #fff;
+  border-bottom: 1px solid rgb(73 73 73) !important;
+}
+
+.MuiTable-stickyHeader {
+  color: #fff;
+}

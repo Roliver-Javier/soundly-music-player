@@ -85,7 +85,9 @@ const CoverArt = ({
         <div
           className={styles.container}
           style={{
-            background: `url(${image}) no-repeat center center #000`,
+            backgroundImage: `url(${image})`,
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             width: '100%',
             height: '80vh',

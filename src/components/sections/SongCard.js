@@ -1,14 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { CarouselProvider, Slider } from 'pure-react-carousel';
 import SongCardItem from './SongCardItem';
 import CategoryCardItem from './CategoryCardItem';
-import 'pure-react-carousel/dist/react-carousel.es.css';
 import { Slide } from 'pure-react-carousel';
-import PlayerContext from '../../context/playerContext';
 import { useHistory } from 'react-router-dom';
+import { getCurrentSong } from '../../actions/playlistAction';
+import { connect } from 'react-redux';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
-const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
-  const { getCurrentSong } = useContext(PlayerContext);
+const SongCard = ({
+  wide,
+  large,
+  songs,
+  imageType,
+  itemToShow,
+  getCurrentSong,
+}) => {
   let history = useHistory();
   const showSongCard = (obj, index) => {
     switch (imageType) {
@@ -51,6 +58,7 @@ const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
           className='carousel'
           totalSlides={songs.length}
           visibleSlides={itemToShow}
+          lockOnWindowScroll
         >
           <Slider>
             {songs.map((item, index) => (
@@ -65,4 +73,6 @@ const SongCard = ({ wide, large, songs, imageType, itemToShow }) => {
   );
 };
 
-export default SongCard;
+export default connect(null, {
+  getCurrentSong,
+})(SongCard);

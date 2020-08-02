@@ -1,0 +1,103 @@
+import React, { useEffect, Fragment } from 'react';
+import styles from './playlistDetail.module.css';
+import { useParams } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import ClearOutlined from '@material-ui/icons/ClearOutlined';
+import IconButton from '@material-ui/core/IconButton';
+import { connect } from 'react-redux';
+import ActionButtonGroup from './sections/ActionButtonGroup';
+import DataGridSongs from './sections/DataGridSongs';
+import {
+  getCurrentPlayList,
+  isLibraryAdded,
+} from '../../../actions/playlistAction';
+import {
+  addPlayListToLibrary,
+  addSongToLibrary,
+} from '../../../actions/libraryAction';
+
+const PlayListPage = ({
+  currentPlayList,
+  getCurrentPlayList,
+  addSongToLibrary,
+  addPlayListToLibrary,
+  isLibraryAdded,
+}) => {
+  let { id } = useParams();
+  const { title, picture, description, tracks, fans } = currentPlayList;
+
+  useEffect(() => {
+    getCurrentPlayList(id);
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className={styles.topContent}>
+        <div className={styles.topLeftCol}>
+          <img src={picture} width='220px' height='220px' />
+        </div>
+
+        <div className={styles.topRightCol}>
+          <div className={styles.captionText}>
+            <Typography variant='caption' display='block' gutterBottom>
+              Playlist
+            </Typography>
+
+            <SubTitles
+              primaryTitle={title}
+              tabsTitle={[
+                description,
+                `${tracks.length} songs`,
+                `Followers: ${fans}`,
+              ]}
+            />
+
+            <div className={styles.actionBtn}>
+              <ActionButtonGroup playListId={id} />
+            </div>
+          </div>
+          <div className={styles.closeBtn}>
+            <IconButton
+              aria-label='close playlist'
+              component='span'
+              style={{ background: 'none', color: '#fff' }}
+            >
+              <ClearOutlined />
+            </IconButton>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.bottomContent}>
+        <DataGridSongs songs={tracks} />
+      </div>
+    </div>
+  );
+};
+
+const SubTitles = ({ primaryTitle, tabsTitle }) => {
+  return (
+    <Fragment>
+      <Typography variant='h3' gutterBottom>
+        {primaryTitle}
+      </Typography>
+
+      {tabsTitle.map((label) => (
+        <Typography variant='body2' gutterBottom>
+          {label}
+        </Typography>
+      ))}
+    </Fragment>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  currentPlayList: state.playlist.currentPlayList,
+});
+
+export default connect(mapStateToProps, {
+  getCurrentPlayList,
+  addPlayListToLibrary,
+  addSongToLibrary,
+  isLibraryAdded,
+})(PlayListPage);

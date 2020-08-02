@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef } from 'react';
 import { Grid } from '@material-ui/core';
 import MusicArt from './MusicArt';
 import { IconButton } from '@material-ui/core/';
@@ -6,7 +6,7 @@ import { SkipPrevious } from '@material-ui/icons/';
 import { SkipNext } from '@material-ui/icons/';
 import PlayPauseButton from './PlayPauseButton';
 import TimelineController from './TimelineController';
-import playerContext from '../../context/playerContext';
+import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
 
 const transition = {
@@ -22,9 +22,8 @@ const pageVariant = {
   },
 };
 
-const MaxMusicArt = () => {
+const MaxMusicArt = ({ playing, currentSong }) => {
   const audio = useRef('audio_tag');
-  const { playing, currentSong, handleEnd } = useContext(playerContext);
   return (
     <motion.div
       variants={pageVariant}
@@ -84,4 +83,8 @@ const NextButton = () => {
   );
 };
 
-export default MaxMusicArt;
+const mapStateToProps = (state) => ({
+  playing: state.playlist.playing,
+  currentSong: state.playlist.currentSong,
+});
+export default connect(mapStateToProps, null)(MaxMusicArt);

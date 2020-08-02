@@ -29,7 +29,7 @@ const CoverArt = ({
         setAlbumTracks(limitedAlbumTracks);
       });
     }
-  }, []);
+  }, [albumId, showAlbum]);
 
   const AlbumnList = () => {
     return (

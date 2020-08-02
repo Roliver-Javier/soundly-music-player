@@ -1,27 +1,28 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect } from 'react';
 import SongCard from '../../components/sections/SongCard';
 import styles from './home.module.css';
 import CoverArt from '../../components/sections/CoverArt';
 import Banner from '../../components/sections/Banner';
-import playerContext from '../../context/playerContext';
+import { connect } from 'react-redux';
+import {
+  getRandomArtistList,
+  getTopTenPlaylist,
+  getCover,
+  getCategoriesPlaylist,
+} from '../../actions/playlistAction';
 
-const HomePage = (props) => {
-  const {
-    cover,
-    categoriesPlaylist,
-    topTenPlaylist,
-    randomArtistsList,
-    getRandomArtistList,
-    getCategoriesPlaylist,
-    getTopTenPlaylist,
-    getCover,
-  } = useContext(playerContext);
-
+const HomePage = ({
+  cover,
+  categoriesPlaylist,
+  topTenPlaylist,
+  randomArtistsList,
+  getCategoriesPlaylist,
+  getTopTenPlaylist,
+  getRandomArtistList,
+  getCover,
+}) => {
   useEffect(() => {
     getCategoriesPlaylist();
-  }, []);
-
-  useEffect(() => {
     getTopTenPlaylist();
     getRandomArtistList();
     getCover();
@@ -76,4 +77,16 @@ const HomePage = (props) => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  cover: state.playlist.cover,
+  categoriesPlaylist: state.playlist.categoriesPlaylist,
+  topTenPlaylist: state.playlist.topTenPlaylist,
+  randomArtistsList: state.playlist.randomArtistsList,
+});
+
+export default connect(mapStateToProps, {
+  getRandomArtistList,
+  getCategoriesPlaylist,
+  getTopTenPlaylist,
+  getCover,
+})(HomePage);

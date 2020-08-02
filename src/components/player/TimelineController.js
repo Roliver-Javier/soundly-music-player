@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, Grid, Typography, Slider } from '@material-ui/core';
-import playerContext from '../../context/playerContext';
+import { togglePlaying } from '../../actions/playlistAction';
+import { connect } from 'react-redux';
 
 const PrettoSlider = withStyles({
   root: {
@@ -35,10 +36,14 @@ const fmtMSS = (s) => {
   return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
 };
 
-const TimelineController = ({ reference }) => {
+const TimelineController = ({
+  reference,
+  playing,
+  currentSong,
+  togglePlaying,
+}) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const { playing, currentSong, handleEnd } = useContext(playerContext);
   const audio = reference;
 
   const handleProgress = (e) => {
@@ -65,7 +70,7 @@ const TimelineController = ({ reference }) => {
       <audio
         onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
         onCanPlay={(e) => setDuration(e.target.duration)}
-        onEnded={handleEnd}
+        onEnded={togglePlaying}
         ref={audio}
         type='audio/mpeg'
         preload='true'
@@ -83,4 +88,11 @@ const TimelineController = ({ reference }) => {
   );
 };
 
-export default TimelineController;
+const mapStateToProps = (state) => ({
+  playing: state.playlist.playing,
+  currentSong: state.playlist.currentSong,
+});
+
+export default connect(mapStateToProps, {
+  togglePlaying,
+})(TimelineController);

@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import styles from './musicArt.module.css';
-import playerContext from '../../context/playerContext';
+import { connect } from 'react-redux';
 import MusicNote from '@material-ui/icons/MusicNote';
 
 const transition = {
@@ -17,9 +17,7 @@ const pageVariant = {
   },
 };
 
-const MusicArt = ({ currentSong }) => {
-  const { playing } = useContext(playerContext);
-
+const MusicArt = ({ currentSong, playing }) => {
   const imageRef = useRef('video-picture');
 
   useEffect(() => {
@@ -102,4 +100,7 @@ const MusicArt = ({ currentSong }) => {
   );
 };
 
-export default MusicArt;
+const mapStateToProps = (state) => ({
+  playing: state.playlist.playing,
+});
+export default connect(mapStateToProps, {})(MusicArt);

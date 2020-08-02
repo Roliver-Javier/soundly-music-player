@@ -1,19 +1,16 @@
 import React, { Suspense, lazy } from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
-import {
-  BrowserRouter as Router,
-  withRouter,
-  Route,
-  Link,
-  Switch,
-} from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 let previousLocation;
 const LoginPage = lazy(() => import('../pages/loginPage/LoginPage'));
 const HomePage = lazy(() => import('../pages/homePage/HomePage'));
 const MaxMusicArt = lazy(() => import('../components/player/MaxMusicArt'));
-const PlayListPage = lazy(() => import('../pages/playlistPage/PlayListPage'));
+const PlayListPage = lazy(() => import('../pages/playlistPage/PlaylistPage'));
+const PlayListDetailPage = lazy(() =>
+  import('../pages/playlistPage/playListDetail/PlaylistDetailPage')
+);
+const LibraryPage = lazy(() => import('../pages/libraryPage/LibraryPage'));
 
 const CurrentSection = ({ history, location }) => {
   const circularLoader = (
@@ -28,7 +25,7 @@ const CurrentSection = ({ history, location }) => {
   );
 
   const checkPrevLocation = () => {
-    if (location.pathname == '/play') {
+    if (location.pathname === '/play') {
       return previousLocation;
     } else {
       return location;
@@ -39,27 +36,15 @@ const CurrentSection = ({ history, location }) => {
     <div>
       <Suspense fallback={circularLoader}>
         <Switch>
-          <Route
-            exact
-            path='/'
-            render={(props) => {
-              return <HomePage />;
-            }}
-          />
-          <Route
-            exact
-            path='/player'
-            render={(props) => {
-              return <MaxMusicArt />;
-            }}
-          />
+          <Route exact path='/' render={() => <HomePage />} />
+          <Route exact path='/player' render={() => <MaxMusicArt />} />
+          <Route exact path='/playList' render={() => <PlayListPage />} />
           <Route
             exact
             path='/playlist/:id'
-            render={(props) => {
-              return <PlayListPage />;
-            }}
+            render={() => <PlayListDetailPage />}
           />
+          <Route exact path='/library' render={() => <LibraryPage />} />
         </Switch>
       </Suspense>
     </div>

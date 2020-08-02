@@ -1,12 +1,13 @@
 import React from 'react';
 import AppContainer from './AppContainer';
-import PlayerState from '../context/PlayerState';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 function App() {
   return (
-    <PlayerState>
+    <Provider store={store}>
       <AppContainer />
-    </PlayerState>
+    </Provider>
   );
 }
 

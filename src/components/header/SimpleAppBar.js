@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  withStyles,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Slide,
-} from '@material-ui/core/';
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core/';
 import { Menu, Search } from '@material-ui/icons/';
 
 const styles = {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { IconButton, CircularProgress } from '@material-ui/core/';
 import {
   PauseCircleFilled,
@@ -6,11 +6,15 @@ import {
   Pause,
   PlayArrow,
 } from '@material-ui/icons/';
-import playerContext from '../../context/playerContext';
+import { togglePlaying } from '../../actions/playlistAction';
+import { connect } from 'react-redux';
 
-const PlayPauseButton = ({ isPlaying, isLoading, minimized }) => {
-  const { togglePlaying } = useContext(playerContext);
-
+const PlayPauseButton = ({
+  isPlaying,
+  isLoading,
+  minimized,
+  togglePlaying,
+}) => {
   const showPlayPause = () => {
     if (isPlaying) {
       if (minimized) {
@@ -40,7 +44,7 @@ const PlayPauseButton = ({ isPlaying, isLoading, minimized }) => {
       disableFocusRipple={true}
       disableRipple={true}
       onClick={() => {
-        togglePlaying();
+        togglePlaying(isPlaying);
       }}
     >
       {showPlayPause()}
@@ -48,4 +52,6 @@ const PlayPauseButton = ({ isPlaying, isLoading, minimized }) => {
   );
 };
 
-export default PlayPauseButton;
+export default connect(null, {
+  togglePlaying,
+})(PlayPauseButton);

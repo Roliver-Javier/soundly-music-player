@@ -53,7 +53,7 @@ const DrawerMenu = () => {
             <ListItemIcon>
               <Mic />
             </ListItemIcon>
-            <ListItemText primary='Library' />
+            <ListItemText primary='My Library' />
           </ListItem>
         </Link>
         <ListItem button onClick={handleClick}>

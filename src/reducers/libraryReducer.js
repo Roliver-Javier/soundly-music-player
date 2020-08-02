@@ -1,4 +1,8 @@
-import { ADD_PLAYLIST_TO_LIBRARY, ADD_SONG_TO_LIBRARY } from '../actions/types';
+import {
+  ADD_PLAYLIST_TO_LIBRARY,
+  ADD_SONG_TO_LIBRARY,
+  IS_PLAYLIST_ADDED,
+} from '../actions/types';
 
 const initialState = {
   playlists: [],
@@ -18,7 +22,14 @@ export default (state = initialState, action) => {
         ...state,
         songs: [...state.songs, action.payload],
       };
-
+    case IS_PLAYLIST_ADDED:
+      return {
+        ...state,
+        playlists: {
+          ...state.playlists,
+          isPlaylistAdded: action.payload,
+        },
+      };
     default:
       return state;
   }

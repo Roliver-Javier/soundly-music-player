@@ -7,22 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
 import ActionButtonGroup from './sections/ActionButtonGroup';
 import DataGridSongs from './sections/DataGridSongs';
-import {
-  getCurrentPlayList,
-  isLibraryAdded,
-} from '../../../actions/playlistAction';
-import {
-  addPlayListToLibrary,
-  addSongToLibrary,
-} from '../../../actions/libraryAction';
+import { getCurrentPlayList } from '../../../actions/playlistAction';
 
-const PlayListPage = ({
-  currentPlayList,
-  getCurrentPlayList,
-  addSongToLibrary,
-  addPlayListToLibrary,
-  isLibraryAdded,
-}) => {
+const PlayListPage = ({ currentPlayList, getCurrentPlayList }) => {
   let { id } = useParams();
   const { title, picture, description, tracks, fans } = currentPlayList;
 
@@ -97,7 +84,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentPlayList,
-  addPlayListToLibrary,
-  addSongToLibrary,
-  isLibraryAdded,
 })(PlayListPage);

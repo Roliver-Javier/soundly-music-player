@@ -1,8 +1,9 @@
 import { ADD_PLAYLIST_TO_LIBRARY, ADD_SONG_TO_LIBRARY } from './types';
+
 export const addPlayListToLibrary = (playlist) => async (dispatch) => {
   return dispatch({
     type: ADD_PLAYLIST_TO_LIBRARY,
-    payload: playlist,
+    payload: { ...playlist, isPlaylistAdded: true },
   });
 };
 

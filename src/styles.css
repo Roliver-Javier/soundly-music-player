@@ -22,6 +22,9 @@ body {
 .MuiTable-root {
   background-color: #1f1f1f;
 }
+.MuiSnackbarContent-root .MuiSnackbarContent-message {
+  color: #00ff5a !important;
+}
 .MuiTableCell-body {
   color: #fff !important;
   padding: 0 !important;

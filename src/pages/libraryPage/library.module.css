@@ -24,7 +24,24 @@
 }
 
 .wrapContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
+
+.wrapContainer > * {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
 .title {
   color: #fff;
+  text-overflow: ellipsis;
+}
+
+.cardItem {
+  padding: 10px;
+  background-color: #3c3b3b;
+  max-width: 160px;
 }

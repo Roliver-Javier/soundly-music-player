@@ -6,7 +6,6 @@ import {
   GET_RANDOM_ARTIST_LIST,
   GET_TOP_TEN_PLAYLIST,
   GET_COVER,
-  IS_PLAYLIST_ADDED,
 } from '../actions/types';
 
 const initialState = {
@@ -23,7 +22,7 @@ const initialState = {
     description: '',
     tracks: [],
     fans: 0,
-    isPlaylistAdded: false,
+    id: 0,
   },
   currentSong: {
     title: '',
@@ -76,14 +75,7 @@ export default (state = initialState, action) => {
         ...state,
         cover: { ...action.payload },
       };
-    case IS_PLAYLIST_ADDED:
-      return {
-        ...state,
-        currentPlayList: {
-          ...state.currentPlayList,
-          isPlaylistAdded: !state.currentPlayList.isPlaylistAdded,
-        },
-      };
+
     default:
       return state;
   }

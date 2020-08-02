@@ -77,9 +77,3 @@ export const getCover = () => async (dispatch) => {
     payload: data,
   });
 };
-
-export const isLibraryAdded = () => async (dispatch) => {
-  return dispatch({
-    type: IS_PLAYLIST_ADDED,
-  });
-};

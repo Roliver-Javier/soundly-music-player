@@ -1,7 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { addPlayListToLibrary } from '../../../../actions/libraryAction';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const ActionButtonGroup = ({
   playListId,
@@ -9,13 +10,23 @@ const ActionButtonGroup = ({
   addPlayListToLibrary,
   playListLibrary,
 }) => {
+  const [IsPlaylistAdded, setIsPlaylistAdded] = useState(false);
+  const [open, setOpen] = useState(false);
   const addPlayList = () => {
-    addPlayListToLibrary({ ...currentPlayList, id: playListId });
-    alert('SE AGREGO A TU LIBRERIA');
+    const isAdded = isCurrentPlayListAdded();
+    if (!isAdded) {
+      addPlayListToLibrary({ ...currentPlayList, id: playListId });
+      setOpen(true);
+    }
   };
 
+  const isCurrentPlayListAdded = () =>
+    playListLibrary.filter((item) => item.id === playListId).length > 0;
+  const handleClose = (event) => {
+    setOpen(false);
+  };
   useEffect(() => {
-    console.log('PRUEBA', playListLibrary);
+    setIsPlaylistAdded(isCurrentPlayListAdded());
   }, [playListLibrary]);
 
   return (
@@ -26,15 +37,27 @@ const ActionButtonGroup = ({
       >
         Play
       </Button>
-      {!currentPlayList.isPlaylistAdded && (
-        <Button
-          style={{ borderColor: '#fff', color: '#fff' }}
-          variant='outlined'
-          onClick={addPlayList}
-        >
-          Add to Library
-        </Button>
-      )}
+
+      <Button
+        style={{
+          borderColor: `${IsPlaylistAdded ? '#666' : '#fff'}`,
+          color: `${IsPlaylistAdded ? '#666' : '#fff'}`,
+        }}
+        variant='outlined'
+        onClick={addPlayList}
+        disabled={IsPlaylistAdded}
+      >
+        {IsPlaylistAdded ? 'Saved' : 'Add to Library'}
+      </Button>
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        autoHideDuration={6000}
+        open={open}
+        onClose={handleClose}
+        message='Playlist saved!'
+        key={'bottom' + 'right'}
+      />
     </Fragment>
   );
 };
@@ -43,6 +66,6 @@ const mapStateToProps = (state) => ({
   currentPlayList: state.playlist.currentPlayList,
   playListLibrary: state.library.playlists,
 });
-export default connect(mapStateToProps, { addPlayListToLibrary })(
-  ActionButtonGroup
-);
+export default connect(mapStateToProps, {
+  addPlayListToLibrary,
+})(ActionButtonGroup);

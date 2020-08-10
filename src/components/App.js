@@ -3,10 +3,10 @@ import store from '../store';
 import { Provider } from 'react-redux';
 import AppContainer from './AppContainer';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import fireConfig from '../config';
+import { firebaseConfig } from '../config';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from 'firebase/app';
-firebase.initializeApp(fireConfig);
+firebase.initializeApp(firebaseConfig);
 
 function App() {
   const rfConfig = {

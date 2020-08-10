@@ -5,6 +5,7 @@ import {
   ADD_SONG_TO_LIBRARY,
   CLEAR_CURRENT_PLAYLIST_LIBRARY,
   REMOVE_SONG_LIBRARY,
+  FIND_PLAYLIST_ARRAY_FROM_LIBRARY,
 } from './types';
 
 export const addPlayListToLibrary = (playlist) => (
@@ -38,7 +39,11 @@ export const addSongToLibrary = (song) => (dispatch, getState, getFirebase) => {
   });
 };
 
-export const getPlayListLibrary = (id) => (dispatch, getState, getFirebase) => {
+export const getPlayListLibraryById = (id) => (
+  dispatch,
+  getState,
+  getFirebase
+) => {
   const db = getFirebase().database().ref('users/1123/library/playlists');
   clearCurrentPlaylist();
   return db
@@ -52,6 +57,26 @@ export const getPlayListLibrary = (id) => (dispatch, getState, getFirebase) => {
             ...Object.values(snapshot.val())[0],
             key: Object.keys(snapshot.val())[0],
           },
+        });
+      }
+    });
+};
+
+export const getPlaylistLibrary = () => (dispatch, getState, getFirebase) => {
+  return getFirebase()
+    .database()
+    .ref('users/1123/library/playlists')
+    .on('value', (snapshot) => {
+      const keys = Object.keys(snapshot.val());
+      const values = Object.values(snapshot.val());
+      values.map((val, index) => {
+        val.key = keys[index];
+        return val;
+      });
+      if (snapshot.exists()) {
+        dispatch({
+          type: FIND_PLAYLIST_ARRAY_FROM_LIBRARY,
+          payload: values,
         });
       }
     });

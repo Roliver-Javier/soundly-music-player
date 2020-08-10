@@ -58,7 +58,7 @@ const TimelineController = ({
     } else {
       audio.current.pause();
     }
-  }, [playing]);
+  }, [playing, audio]);
 
   return (
     <div style={{ margin: '0 auto', width: '90%' }}>

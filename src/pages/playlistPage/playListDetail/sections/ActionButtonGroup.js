@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import {
   addPlayListToLibrary,
-  getPlayListLibrary,
+  getPlayListLibraryById,
   clearCurrentPlaylist,
 } from '../../../../actions/libraryAction';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -13,7 +13,7 @@ const ActionButtonGroup = ({
   currentPlayList,
   currentLibraryPlayList,
   addPlayListToLibrary,
-  getPlayListLibrary,
+  getPlayListLibraryById,
   clearCurrentPlaylist,
 }) => {
   const [open, setOpen] = useState(false);
@@ -26,11 +26,11 @@ const ActionButtonGroup = ({
   };
 
   useEffect(() => {
-    getPlayListLibrary(playListId);
+    getPlayListLibraryById(playListId);
     return () => {
       clearCurrentPlaylist();
     };
-  }, []);
+  }, [clearCurrentPlaylist, getPlayListLibraryById, playListId]);
 
   return (
     <Fragment>
@@ -59,7 +59,7 @@ const ActionButtonGroup = ({
         open={open}
         onClose={handleClose}
         message='Playlist saved!'
-        key={'bottom' + 'right'}
+        key='bottomright'
       />
     </Fragment>
   );
@@ -72,6 +72,6 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   addPlayListToLibrary,
-  getPlayListLibrary,
+  getPlayListLibraryById,
   clearCurrentPlaylist,
 })(ActionButtonGroup);

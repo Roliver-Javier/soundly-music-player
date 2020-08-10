@@ -26,7 +26,7 @@ const HomePage = ({
     getTopTenPlaylist();
     getRandomArtistList();
     getCover();
-  }, []);
+  }, [getCategoriesPlaylist, getTopTenPlaylist, getRandomArtistList, getCover]);
   return (
     <>
       <div className={styles.wrapper}>

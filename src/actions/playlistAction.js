@@ -20,7 +20,6 @@ export const getCurrentSong = (song, artist, title, picture) => async (
     payload: {
       title,
       artist,
-      title,
       picture,
       preview: song,
     },

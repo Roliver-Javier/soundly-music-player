@@ -5,6 +5,7 @@ import {
   FIND_SONGS_FROM_LIBRARY,
   CLEAR_CURRENT_PLAYLIST_LIBRARY,
   REMOVE_SONG_LIBRARY,
+  FIND_PLAYLIST_ARRAY_FROM_LIBRARY,
 } from '../actions/types';
 
 const initialState = {
@@ -42,6 +43,13 @@ export default (state = initialState, action) => {
         ...state,
         songs: action.payload,
       };
+
+    case FIND_PLAYLIST_ARRAY_FROM_LIBRARY:
+      return {
+        ...state,
+        playlists: action.payload,
+      };
+
     case REMOVE_SONG_LIBRARY:
       return {
         ...state,

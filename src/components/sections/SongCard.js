@@ -47,6 +47,8 @@ const SongCard = ({
             playlistCode={obj.id}
           />
         );
+      default:
+        return <></>;
     }
   };
   return (

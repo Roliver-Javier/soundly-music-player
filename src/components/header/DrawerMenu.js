@@ -29,6 +29,7 @@ const DrawerMenu = () => {
           <ListItem>
             <img
               src='https://firebasestorage.googleapis.com/v0/b/medium-blog-4c193.appspot.com/o/logo2.png?alt=media&token=0c7d358e-5747-4ecb-8bef-a923021788b8'
+              alt=''
               style={{
                 width: '100%',
                 display: 'flex',

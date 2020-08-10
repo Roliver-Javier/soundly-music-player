@@ -22,7 +22,7 @@ const PlayListPage = ({
     window.scrollTo(0, 0);
     getCurrentPlayList(id);
     getSongsLibrary();
-  }, []);
+  }, [getCurrentPlayList, getSongsLibrary, id]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -34,7 +34,7 @@ const SongRow = ({
   useEffect(() => {
     const song = librarySongs.find((song) => song.id === id);
     if (song) setSelected(true);
-  }, [librarySongs]);
+  }, [librarySongs, id]);
 
   return (
     <TableRow>

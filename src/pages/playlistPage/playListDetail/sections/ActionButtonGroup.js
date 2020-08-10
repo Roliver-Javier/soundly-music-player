@@ -1,33 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { addPlayListToLibrary } from '../../../../actions/libraryAction';
+import {
+  addPlayListToLibrary,
+  getPlayListLibrary,
+  clearCurrentPlaylist,
+} from '../../../../actions/libraryAction';
 import Snackbar from '@material-ui/core/Snackbar';
 
 const ActionButtonGroup = ({
   playListId,
   currentPlayList,
+  currentLibraryPlayList,
   addPlayListToLibrary,
-  playListLibrary,
+  getPlayListLibrary,
+  clearCurrentPlaylist,
 }) => {
-  const [IsPlaylistAdded, setIsPlaylistAdded] = useState(false);
   const [open, setOpen] = useState(false);
   const addPlayList = () => {
-    const isAdded = isCurrentPlayListAdded();
-    if (!isAdded) {
-      addPlayListToLibrary({ ...currentPlayList, id: playListId });
-      setOpen(true);
-    }
+    addPlayListToLibrary({ ...currentPlayList, id: playListId });
+    setOpen(true);
   };
-
-  const isCurrentPlayListAdded = () =>
-    playListLibrary.filter((item) => item.id === playListId).length > 0;
   const handleClose = (event) => {
     setOpen(false);
   };
+
   useEffect(() => {
-    setIsPlaylistAdded(isCurrentPlayListAdded());
-  }, [playListLibrary]);
+    getPlayListLibrary(playListId);
+    return () => {
+      clearCurrentPlaylist();
+    };
+  }, []);
 
   return (
     <Fragment>
@@ -40,14 +43,14 @@ const ActionButtonGroup = ({
 
       <Button
         style={{
-          borderColor: `${IsPlaylistAdded ? '#666' : '#fff'}`,
-          color: `${IsPlaylistAdded ? '#666' : '#fff'}`,
+          borderColor: `${currentLibraryPlayList.isAdded ? '#666' : '#fff'}`,
+          color: `${currentLibraryPlayList.isAdded ? '#666' : '#fff'}`,
         }}
         variant='outlined'
         onClick={addPlayList}
-        disabled={IsPlaylistAdded}
+        disabled={currentLibraryPlayList.isAdded}
       >
-        {IsPlaylistAdded ? 'Saved' : 'Add to Library'}
+        {currentLibraryPlayList.isAdded ? 'Saved' : 'Add to Library'}
       </Button>
 
       <Snackbar
@@ -64,8 +67,11 @@ const ActionButtonGroup = ({
 
 const mapStateToProps = (state) => ({
   currentPlayList: state.playlist.currentPlayList,
+  currentLibraryPlayList: state.library.currentPlayList,
   playListLibrary: state.library.playlists,
 });
 export default connect(mapStateToProps, {
   addPlayListToLibrary,
+  getPlayListLibrary,
+  clearCurrentPlaylist,
 })(ActionButtonGroup);

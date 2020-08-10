@@ -8,13 +8,20 @@ import { connect } from 'react-redux';
 import ActionButtonGroup from './sections/ActionButtonGroup';
 import DataGridSongs from './sections/DataGridSongs';
 import { getCurrentPlayList } from '../../../actions/playlistAction';
+import { getSongsLibrary } from '../../../actions/libraryAction';
 
-const PlayListPage = ({ currentPlayList, getCurrentPlayList }) => {
+const PlayListPage = ({
+  currentPlayList,
+  getCurrentPlayList,
+  getSongsLibrary,
+}) => {
   let { id } = useParams();
   const { title, picture, description, tracks, fans } = currentPlayList;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getCurrentPlayList(id);
+    getSongsLibrary();
   }, []);
 
   return (
@@ -69,8 +76,8 @@ const SubTitles = ({ primaryTitle, tabsTitle }) => {
         {primaryTitle}
       </Typography>
 
-      {tabsTitle.map((label) => (
-        <Typography variant='body2' gutterBottom>
+      {tabsTitle.map((label, index) => (
+        <Typography variant='body2' key={label + index} gutterBottom>
           {label}
         </Typography>
       ))}
@@ -84,4 +91,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentPlayList,
+  getSongsLibrary,
 })(PlayListPage);

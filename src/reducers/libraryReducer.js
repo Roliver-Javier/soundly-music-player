@@ -1,10 +1,16 @@
 import {
   ADD_PLAYLIST_TO_LIBRARY,
   ADD_SONG_TO_LIBRARY,
-  IS_PLAYLIST_ADDED,
+  FIND_PLAYLIST_FROM_LIBRARY,
+  FIND_SONGS_FROM_LIBRARY,
+  CLEAR_CURRENT_PLAYLIST_LIBRARY,
+  REMOVE_SONG_LIBRARY,
 } from '../actions/types';
 
 const initialState = {
+  currentPlayList: {},
+  currentSong: {},
+  currentArtist: {},
   playlists: [],
   songs: [],
   artists: [],
@@ -16,19 +22,36 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playlists: [...state.playlists, action.payload],
+        currentPlayList: { ...action.payload },
       };
     case ADD_SONG_TO_LIBRARY:
       return {
         ...state,
         songs: [...state.songs, action.payload],
+        currentSong: { ...action.payload },
       };
-    case IS_PLAYLIST_ADDED:
+    case FIND_PLAYLIST_FROM_LIBRARY:
       return {
         ...state,
-        playlists: {
-          ...state.playlists,
-          isPlaylistAdded: action.payload,
+        currentPlayList: {
+          ...action.payload,
         },
+      };
+    case FIND_SONGS_FROM_LIBRARY:
+      return {
+        ...state,
+        songs: action.payload,
+      };
+    case REMOVE_SONG_LIBRARY:
+      return {
+        ...state,
+        songs: [...action.payload],
+      };
+
+    case CLEAR_CURRENT_PLAYLIST_LIBRARY:
+      return {
+        ...state,
+        currentPlayList: {},
       };
     default:
       return state;

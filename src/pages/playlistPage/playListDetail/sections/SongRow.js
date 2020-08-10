@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ToggleButton from '@material-ui/lab/ToggleButton';
@@ -6,10 +6,36 @@ import CheckIcon from '@material-ui/icons/Check';
 import AddOutlined from '@material-ui/icons/AddOutlined';
 import Typography from '@material-ui/core/Typography';
 import styles from './songRow.module.css';
+import { connect } from 'react-redux';
+import {
+  addSongToLibrary,
+  removeSongFromLibrary,
+} from '../../../../actions/libraryAction';
 
-const SongRow = ({ row }) => {
+const SongRow = ({
+  row,
+  currentSong,
+  librarySongs,
+  addSongToLibrary,
+  removeSongFromLibrary,
+  getSingleSongLibrary,
+}) => {
   const [selected, setSelected] = React.useState(false);
-  const { title, album, artist, duration, time_add } = row;
+  const { title, id, album, artist, duration, time_add } = row;
+  const saveSongToLibrary = () => {
+    if (!selected) {
+      addSongToLibrary(row);
+    } else {
+      removeSongFromLibrary(row.id);
+    }
+
+    setSelected(!selected);
+  };
+  useEffect(() => {
+    const song = librarySongs.find((song) => song.id === id);
+    if (song) setSelected(true);
+  }, [librarySongs]);
+
   return (
     <TableRow>
       <TableCell component='th' scope='row'>
@@ -17,13 +43,9 @@ const SongRow = ({ row }) => {
           value='check'
           selected={selected}
           className={styles.toggleBtn}
-          onChange={() => {
-            setSelected(!selected);
-          }}
+          onChange={() => saveSongToLibrary()}
         >
-          {selected && (
-            <CheckIcon className={styles.toggleSelected} color='#fff' />
-          )}
+          {selected && <CheckIcon className={styles.toggleSelected} />}
           {!selected && <AddOutlined />}
         </ToggleButton>
       </TableCell>
@@ -56,4 +78,12 @@ const SongRow = ({ row }) => {
   );
 };
 
-export default SongRow;
+const mapStateToProps = (state) => ({
+  currentSong: state.library.currentSong,
+  librarySongs: state.library.songs,
+});
+
+export default connect(mapStateToProps, {
+  addSongToLibrary,
+  removeSongFromLibrary,
+})(SongRow);

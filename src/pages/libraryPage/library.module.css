@@ -45,3 +45,12 @@
   background-color: #3c3b3b;
   max-width: 160px;
 }
+.cardContent {
+  display: flex;
+  flex-direction: row;
+}
+.playBtn {
+  position: absolute;
+  right: 0;
+  color: #fff;
+}

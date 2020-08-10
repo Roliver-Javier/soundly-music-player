@@ -7,7 +7,6 @@ import {
   GET_TOP_TEN_PLAYLIST,
   GET_RANDOM_ARTIST_LIST,
   GET_COVER,
-  IS_PLAYLIST_ADDED,
 } from './types';
 
 export const togglePlaying = (isPlaying) => async (dispatch) =>
@@ -28,7 +27,7 @@ export const getCurrentSong = (song, artist, title, picture) => async (
   });
 export const getCurrentPlayList = (playlistCode) => async (dispatch) => {
   const res = await getPlayList(playlistCode);
-  console.log('HERE', res.data);
+
   return dispatch({
     type: SET_CURRENT_PLAYLIST,
     payload: {

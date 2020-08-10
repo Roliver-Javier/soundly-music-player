@@ -6,6 +6,7 @@ import {
   GET_RANDOM_ARTIST_LIST,
   GET_TOP_TEN_PLAYLIST,
   GET_COVER,
+  GET_LYRICS,
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
   cover: null,
   random: false,
   loading: false,
-
+  lyrics: '',
   currentPlayList: {
     title: '',
     picture: '',
@@ -74,6 +75,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cover: { ...action.payload },
+      };
+
+    case GET_LYRICS:
+      return {
+        ...state,
+        lyrics: action.payload,
       };
 
     default:

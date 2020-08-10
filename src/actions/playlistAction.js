@@ -1,4 +1,5 @@
 import { getPlayList, getPlaylistByCategories } from '../apis/QueryApi';
+import { getLyricsByArtistAndTrack } from '../apis/LyricsApi';
 import {
   TOGGLE_PLAYING,
   SET_CURRENT_SONG,
@@ -7,6 +8,7 @@ import {
   GET_TOP_TEN_PLAYLIST,
   GET_RANDOM_ARTIST_LIST,
   GET_COVER,
+  GET_LYRICS,
 } from './types';
 
 export const togglePlaying = (isPlaying) => async (dispatch) =>
@@ -74,4 +76,17 @@ export const getCover = () => async (dispatch) => {
     type: GET_COVER,
     payload: data,
   });
+};
+
+export const getLyrics = (title, artist) => async (dispatch) => {
+  try {
+    const res = await getLyricsByArtistAndTrack(title, artist);
+    const dataString = res.data.substring(9, res.data.length - 2);
+    const data = JSON.parse(dataString);
+
+    return dispatch({
+      type: GET_LYRICS,
+      payload: data.message.body.lyrics.lyrics_body,
+    });
+  } catch (err) {}
 };
